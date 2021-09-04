@@ -1,0 +1,33 @@
+{% load static %}
+{% load multifor %}
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="周遊プランニングアプリ">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'pathfinding/css/style.css' %}" media="all">
+    <title>周遊プランニングアプリ</title>
+</head>
+
+<body>
+
+<div>
+    　<h2> 最も効率的な順路は以下の順番です！</h2>　
+</div>
+
+{% for place in route; time in times %}
+<div>
+    <h3>{{place}}</h3>
+</div>
+<div class="arrow">
+    <h5> ↓ {{time}}分 </h5>
+</div>
+{% endfor %}
+
+<div>
+    <h3>{{route.0}}</h3>
+</div>
+
+</body>

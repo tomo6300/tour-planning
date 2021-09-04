@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="description" content="周遊プランニングアプリ">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'pathfinding/css/style.css' %}">
+    <title>周遊プランニングアプリ</title>
 </head>
 <body>
+<header class="page-header"></header>
+<main>
+    <div class="eye-catch text-center" style="background-image: url({% static 'pathfinding/icons/eyecatch.png' %})">
+        <h1>周遊プランニング</h1>
+    </div>
+    <ul>
 
+        <li>
+            <form action="{% url 'pathfinding:result' %}" method="post" name="place-form">
+                {% csrf_token %}
+                <div class="field">
+                    <label>出発地・目的地</label><input type="text" placeholder="出発地・目的地を入力" name="departure_destination">
+                    <label>訪問地1</label><input type="text" placeholder="訪問地1を入力" name="leg1">
+                    <label>訪問地2</label><input type="text" placeholder="訪問地2を入力" name="leg2">
+                    <label>訪問地3</label><input type="text" placeholder="訪問地3を入力" name="leg3">
+                    <label>訪問地4</label><input type="text" placeholder="訪問地4を入力" name="leg4">
+                </div>
+                <input type="submit" value="検索">
+            </form>
+        </li>
+
+    </ul>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
 </body>
 </html>
