@@ -8,7 +8,7 @@ def index(request):
 
 
 def result(request):
-    place_list = ["京都駅", "伏見稲荷大社", "金閣寺", "清水寺", "二条城"]
+    place_list = ["京都駅", "伏見稲荷大社", "金閣寺", "清水寺", "二条城"]  # デフォルト
     if request.method == 'POST':
         departure_destination = request.POST['departure_destination']
         leg1 = request.POST['leg1']
