@@ -120,35 +120,28 @@ def calc_route(place_list):
                 c[j, i] = df_route['duration[s]'][p]
                 p += 1
 
-    # 最適化モデルの定義
     mip_model = pp.LpProblem("tsp_mip", pp.LpMinimize)
 
     pd.plotting.register_matplotlib_converters()
-    # 変数の定義
+
     x = pp.LpVariable.dicts('x', ((i, j) for i in range(N) for j in range(N)), lowBound=0, upBound=1, cat='Binary')
-    # we need to keep track of the order in the tour to eliminate the possibility of subtours
     u = pp.LpVariable.dicts('u', (i for i in range(N)), lowBound=1, upBound=N, cat='Integer')
 
-    # 評価指標（式（１））の定義＆登録
     objective = pp.lpSum(c[i, j] * x[i, j] for i in range(N) for j in range(N) if i != j)
     mip_model += objective
 
-    # 　条件式(2)の登録
     for i in range(N):
         mip_model += pp.lpSum(x[i, j] for j in range(N) if i != j) == 1
 
-    # 条件式(3)の登録
     for i in range(N):
         mip_model += pp.lpSum(x[j, i] for j in range(N) if i != j) == 1
 
-    # 条件式(4) (MTZ制約)
     for i in range(N):
         for j in range(N):
             if i != j and (i != 0 and j != 0):
                 mip_model += u[i] - u[j] <= N * (1 - x[i, j]) - 1
 
-    # 最適化の実行
-    status = mip_model.solve()
+    mip_model.solve()
 
     routes = [(i, j) for i in range(N) for j in range(N) if pp.value(x[i, j]) == 1]
 
